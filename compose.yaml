@@ -1,0 +1,25 @@
+networks:
+  jedi:
+
+services:
+  app:
+    container_name: padawan-6156-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "6281:8081"
+    networks:
+      - jedi
+
+  db:
+    container_name: padawan-6156-db
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: R2D2c3p0
+      POSTGRES_USER: padawan
+      POSTGRES_DB: tasks
+    networks:
+      - jedi
