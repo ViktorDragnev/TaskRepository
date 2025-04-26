@@ -20,6 +20,4 @@ public interface TaskService {
     TaskResponseDto getTaskById(long id);
 
     List<TaskResponseDto> getAllTasks();
-
-    List<TaskResponseDto> taskList();
 }

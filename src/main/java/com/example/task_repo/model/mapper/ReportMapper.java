@@ -3,6 +3,7 @@ package com.example.task_repo.model.mapper;
 import com.example.task_repo.model.dto.request.ReportRequestDto;
 import com.example.task_repo.model.dto.response.ResponseForReports.ReportResponseDto;
 import com.example.task_repo.model.dto.response.ResponseForReports.TaskSimpleResponseDto;
+import com.example.task_repo.model.dto.response.responseForTasks.ReportSimpleResponseDto;
 import com.example.task_repo.model.entity.Report;
 import com.example.task_repo.model.entity.Task;
 import org.springframework.stereotype.Component;
@@ -35,4 +36,15 @@ public class ReportMapper {
                 task.getDescription(),
                 task.getDeadline()
         );
-    }}
+    }
+
+    public static ReportSimpleResponseDto reportToSimpleResponse(Report report) {
+        return new ReportSimpleResponseDto(
+                report.getId(),
+                report.getContent(),
+                report.getWorkTime(),
+                report.getDateCreated(),
+                report.getDateUpdated()
+        );
+    }
+}

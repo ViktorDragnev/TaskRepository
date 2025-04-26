@@ -46,18 +46,6 @@ public class TaskController {
         return new ResponseEntity<>(taskResponseDtos, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/v2")
-    public ResponseEntity<List<TaskResponseDto>> getListV2() throws ResourceNotFoundException {
-
-        if(taskService.getAllTasks().isEmpty()){
-            throw new ResourceNotFoundException(0, TaskResponseDto.class);  //Добавено в лабораторно упражнение 8
-        }
-
-        List<TaskResponseDto> taskResponseDtos = taskService.taskList();
-        return new ResponseEntity<>(taskResponseDtos, HttpStatus.OK);
-    }
-
-
     @GetMapping("/{id}")
     public ResponseEntity<TaskResponseDto> get(@Valid @PathVariable Long id) throws ResourceNotFoundException {
 

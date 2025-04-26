@@ -83,15 +83,4 @@ public class TaskServiceImpl implements TaskService {
         }
         return taskResponseDtoList;
     }
-
-    @Override
-    public List<TaskResponseDto> taskList() {
-        List<Task> taskList = taskRepository.findAll();
-        List<TaskResponseDto> taskResponseDtoList = new ArrayList<>();
-        for(Task task : taskList){
-            TaskResponseDto taskDto = customMapper.mapTaskToResponse(task);
-            taskResponseDtoList.add(taskDto);
-        }
-        return taskResponseDtoList;
-    }
 }

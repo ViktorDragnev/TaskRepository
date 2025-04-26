@@ -1,8 +1,10 @@
 package com.example.task_repo.controller;
 
 import com.example.task_repo.exception.ResourceNotFoundException;
+import com.example.task_repo.model.dto.request.FilterReportDto;
 import com.example.task_repo.model.dto.request.ReportRequestDto;
 import com.example.task_repo.model.dto.response.ResponseForReports.ReportResponseDto;
+import com.example.task_repo.model.dto.response.responseForTasks.ReportSimpleResponseDto;
 import com.example.task_repo.model.dto.response.responseForTasks.TaskResponseDto;
 import com.example.task_repo.model.service.ReportService;
 import jakarta.validation.Valid;
@@ -49,22 +51,27 @@ public class ReportController {
         return new ResponseEntity<>(reportService.getById(id), HttpStatus.OK);
     }
 
-    /*
+
     @GetMapping()
-    public ResponseEntity<List<ReportResponseDto>> getByWorkTimeInDateInterval(
+    public ResponseEntity<List<ReportSimpleResponseDto>> getByWorkTimeInDateInterval(
             @Valid @ModelAttribute FilterReportDto filter //Добавено в лабораторно упражнение 8
     ) throws ResourceNotFoundException {
         if(reportService.getAllReports().isEmpty()){
             throw new ResourceNotFoundException(0, TaskResponseDto.class);  //Добавено в лабораторно упражнение 8
         }
+        return new ResponseEntity<>(reportService.getReportsInInterval(filter), HttpStatus.OK);
     }
 
+
     @GetMapping("/task/{id}/max-hours-worked")
-    public ResponseEntity<List<ReportResponseDto>> getByTaskWithMaxHoursWorked(@PathVariable(name = "id") long taskId) throws ResourceNotFoundException {
-        throw new ResourceNotFoundException(taskId, TaskResponseDto.class);  //Добавено в лабораторно упражнение 8
-        //return ResponseEntity.ok(new ArrayList<>());
+    public ResponseEntity<List<ReportSimpleResponseDto>> getByTaskWithMaxHoursWorked(@PathVariable(name = "id") long taskId) throws ResourceNotFoundException {
+
+        if(reportService.getAllReports().isEmpty()){
+            throw new ResourceNotFoundException(taskId, TaskResponseDto.class);  //Добавено в лабораторно упражнение 8
+        }
+
+        return new ResponseEntity<>(reportService.getReportWithMaxHours(taskId), HttpStatus.OK);
     }
-    */
 
     @PutMapping("/{id}/update")
     public ResponseEntity<ReportResponseDto> update(@PathVariable Long id, @Valid @RequestBody ReportRequestDto dto) throws ResourceNotFoundException {
